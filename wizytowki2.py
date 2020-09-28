@@ -28,3 +28,29 @@ class BusinessContact(BaseContact):                                             
     @property
     def contact_number(self):
         return self.work_phone
+
+def create_contacts(card_type, amount):                         #3 def function create_contacts
+    cards = []
+    for i in range(amount):
+        if card_type == "base":
+            cards.append(
+                BaseContact(
+                    first_name=fake.first_name(),
+                    last_name=fake.last_name(),
+                    phone=fake.phone_number(),
+                    email=fake.email(),
+                )
+            )
+        elif card_type == "business":
+            cards.append(
+                BusinessContact(
+                    first_name=fake.first_name(),
+                    last_name=fake.last_name(),
+                    phone=fake.phone_number(),
+                    position=fake.job(),
+                    company=fake.company(),
+                    work_phone=fake.phone_number(),
+                    email=fake.email(),
+                )
+            )
+    return cards
