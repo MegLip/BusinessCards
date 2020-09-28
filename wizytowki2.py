@@ -19,21 +19,22 @@ class BaseContact():                                                            
         return f"Wybieram numer: {self.contact_number} i dzwonię do {self.first_name} {self.last_name}"
 
 class BusinessContact(BaseContact):                                                             #2 def klasy BusinessContact
-    def __init__(self, first_name, last_name, phone, email, position, company, work_phone):
+    def __init__(self, first_name, last_name, phone, email, job, company, business_phone):
         super().__init__(first_name, last_name, phone, email)
-        self.position = position
+        self.job = job
         self.company = company
-        self.work_phone = work_phone
-
+        self.business_phone = business_phone            
+    def __str__(self):
+        return f"{self.first_name} {self.last_name}, {self.phone}, {self.email}, {self.job}, {self.company}, {self.business_phone}"
     @property
     def contact_number(self):
-        return self.work_phone
+        return self.business_phone
 
-def create_contacts(card_type, amount):                         #3 def function create_contacts
-    cards = []
-    for i in range(amount):
-        if card_type == "base":
-            cards.append(
+def create_contacts(type_of_card, number):                              #3 def function create_contacts
+    card_list = []
+    for i in range(number):
+        if type_of_card == "base":
+            card_list.append(
                 BaseContact(
                     first_name=fake.first_name(),
                     last_name=fake.last_name(),
@@ -41,16 +42,36 @@ def create_contacts(card_type, amount):                         #3 def function 
                     email=fake.email(),
                 )
             )
-        elif card_type == "business":
-            cards.append(
+        elif type_of_card == "business":
+            card_list.append(
                 BusinessContact(
                     first_name=fake.first_name(),
                     last_name=fake.last_name(),
                     phone=fake.phone_number(),
-                    position=fake.job(),
+                    job=fake.job(),
                     company=fake.company(),
-                    work_phone=fake.phone_number(),
+                    business_phone=fake.phone_number(),
                     email=fake.email(),
                 )
             )
-    return cards
+    return card_list
+
+if __name__ == "__main__":                                          #4 Choise type of card and number of copies
+    type_of_card = input("Wybierz typ (base lub business): ")
+    number = int(input("Podaj liczbę kopii: "))
+    if type_of_card == 'base':
+        print('\n',"Wizytówki base:",'\n',"***************")
+        base_cards = create_contacts("base", number)
+        for card in base_cards:
+            #print(card.phone)
+            print(card.contact())
+            print("Długość imienia i nazwiska: ", card.label_length, '\n')
+            #print()
+    elif type_of_card == 'business':
+        print('\n',"Wizytówki biznesowe:",'\n',"********************")
+        business_cards = create_contacts("business", number)
+        for card in business_cards:
+            print(card.business_phone)
+            print(card.contact())
+            print("Długość imienia i nazwiska: ", card.label_length, '\n')
+            #print()
