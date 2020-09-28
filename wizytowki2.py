@@ -1,7 +1,7 @@
 from faker import Faker
 fake = Faker("pl_PL")
 
-class BaseContact():                                                    #def klasy BaseContact
+class BaseContact():                                                             #1 def klasy BaseContact
     def __init__(self, first_name, last_name, phone, email):
         self.first_name = first_name
         self.last_name = last_name
@@ -18,3 +18,13 @@ class BaseContact():                                                    #def kla
     def contact(self):
         return f"Wybieram numer: {self.contact_number} i dzwonię do {self.first_name} {self.last_name}"
 
+class BusinessContact(BaseContact):                                                             #2 def klasy BusinessContact
+    def __init__(self, first_name, last_name, phone, email, position, company, work_phone):
+        super().__init__(first_name, last_name, phone, email)
+        self.position = position
+        self.company = company
+        self.work_phone = work_phone
+
+    @property
+    def contact_number(self):
+        return self.work_phone
