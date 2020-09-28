@@ -63,15 +63,11 @@ if __name__ == "__main__":                                          #4 Choise ty
         print('\n',"Wizytówki base:",'\n',"***************")
         base_cards = create_contacts("base", number)
         for card in base_cards:
-            #print(card.phone)
             print(card.contact())
             print("Długość imienia i nazwiska: ", card.label_length, '\n')
-            #print()
     elif type_of_card == 'business':
         print('\n',"Wizytówki biznesowe:",'\n',"********************")
         business_cards = create_contacts("business", number)
         for card in business_cards:
-            print(card.business_phone)
             print(card.contact())
             print("Długość imienia i nazwiska: ", card.label_length, '\n')
-            #print()
